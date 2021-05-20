@@ -1,30 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data-selfie-app</title>
 </head>
+
 <body>
-    
+
     <h1>Data Selfie app</h1>
     <a href="hello.html">Hello</a>
     <a href="bye.html">Bye</a>
 
+    <p>latitude: <span id=latitude></span>&deg;</p>
+    <p>longitude: <span id=longitude></span>&deg;</p>
 
+    <button value='submit' class='btn btn-Primary' onclick="geo()">Geolocation</button>
 
 
     <script>
-        if('geolocation' in navigator){
-            console.log("Geolocation Available");
-        }else{
-            console.log("Geolocation not Available")
-        }
 
+        function geo() {
+            if ('geolocation' in navigator) {
+                console.log("Geolocation Available");
+                navigator.geolocation.getCurrentPosition(async position => {
+                    // console.log(position.coords);
+                    // console.log(position.coords.longitude);
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    document.getElementById("latitude").textContent = lat;
+                    document.getElementById("longitude").textContent = lon;
+
+                    const data = {lat,lon};
+                    const options = {
+                        method: 'POST',
+                        headers: {
+                           'Content-Type': 'application/JSON'
+                        },
+                        body: JSON.stringify(data),
+                    };
+                    const response = await fetch('/api',options)
+                    const json = await response.json();
+                    console.log(json)
+                    
+                })
+            } else {
+                console.log("Geolocation not Available")
+            }
+        }
 
 
 
     </script>
 </body>
+
 </html>
