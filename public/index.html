@@ -32,7 +32,7 @@
 
     <h2 class="here">Hello, I'm here</h2>
     <div class="row">
-        <div class="col-2"><span id="latitude"></span>&deg;</div> 
+        <div class="col-2"><span id="latitude"></span>&deg;</div>
         <div class="col-2"><span id="longitude"></span>&deg;</div>
     </div>
     <a href="./logs/all.html">List</a>
@@ -48,13 +48,63 @@
 
     <!-- <input type="text" id="userDay" placeholder="Day"> -->
     <input type="text" id="userInput" placeholder="my favorite food">
-    <button value='submit' class='btn btn-primary' onclick="setup()">Submit</button>
+    <button value='submit' id="button" class='btn btn-primary'>Submit</button>
     <!-- <button value='submit' onclick="image()">Let's take a photo</button> -->
 
 
-    
 
-    <script src='sketch.js'></script>
+
+    <script>
+
+        function setup() {
+
+            let lat,lon;
+            noCanvas()
+            const video = createCapture(VIDEO);
+            video.size(320, 240);
+
+            button.addEventListener("click", async event => {
+
+                const timestamp = new Date().toLocaleString();
+                const food = document.getElementById("userInput").value;
+
+                video.loadPixels();
+                const image64 = video.canvas.toDataURL()
+
+                document.getElementById("time").textContent = timestamp;
+                document.getElementById("food").textContent = food;
+
+                const data = { lat, lon, food, image64 };
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/JSON'
+                    },
+                    body: JSON.stringify(data),
+                };
+                const response = await fetch('/api', options)
+                const json = await response.json();
+                console.log(json)
+
+
+
+            })
+
+
+        }
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(position => {
+                console.log("Geolocation Available");
+                 lat = position.coords.latitude;
+                 lon = position.coords.longitude;
+                document.getElementById("latitude").textContent = lat;
+                document.getElementById("longitude").textContent = lon;
+            })
+
+        } else {
+            console.log("Geolocation not Available")
+        }
+    </script>
 </body>
 
 </html>
