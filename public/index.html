@@ -7,31 +7,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <!-- title font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+
+    <!--  here font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Chela+One&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="home.css">
     <title>Data-selfie-app</title>
 </head>
 
 <body>
 
-    <h1>Data Selfie app</h1>
-    <a href="hello.html">Hello</a>
-    <a href="bye.html">Bye</a>
-
-    <p>latitude: <span id=latitude></span>&deg;</p>
-    <p>longitude: <span id=longitude></span>&deg;</p>
-    <p>TimeStamp: <span id=time></span></p>
-    <p>Mood: <span id=status></span></p>
-    <p>Day: <span id=day></span></p>
-    <canvas id="canvas"></canvas>
+    <h1 calss="title">Data Selfie app</h1>
+    <!-- <a href="./logs/index.html">List of moods</a> -->
 
 
-    <input type="text" id="userDay" placeholder="Day">
-    <input type="text" id="userInput" placeholder="show us your mood">
-    <button value='submit' class='btn btn-Primary' onclick="setup()">Geolocation</button>
+    <h2 class="here">Hello, I'm here</h2>
+    <div class="row">
+        <div class="col-2"><span id="latitude"></span>&deg;</div> 
+        <div class="col-2"><span id="longitude"></span>&deg;</div>
+    </div>
+    <a href="./logs/all.html">List</a>
+
+    <div class="fav">
+        <p>Date: <span id=time></span></p>
+        <p>My Favorite food: <span id=food></span></p>
+    </div>
+
+    <!-- <p>Day: <span id=day></span></p> -->
+    <!-- <canvas id="canvas"></canvas> -->
+    <!-- <button onclick="setup()">take a photo</button> -->
+
+    <!-- <input type="text" id="userDay" placeholder="Day"> -->
+    <input type="text" id="userInput" placeholder="my favorite food">
+    <button value='submit' class='btn btn-primary' onclick="setup()">Submit</button>
+    <!-- <button value='submit' onclick="image()">Let's take a photo</button> -->
 
 
-
-
-
+    
 
     <script src='sketch.js'></script>
 </body>

@@ -7,14 +7,30 @@ const Datastore = require('nedb');
 const app = express();
 app.listen(3000, () => console.log("Listening at port 3000"));
 app.use(express.static('public'))
-app.use(express.json({limit: "1mb"}))
+app.use(express.json({ limit: "1mb" }))
 
 // creating database var to create a new file to store the data // 
 const database = new Datastore('database.db');
 database.loadDatabase();
 
+
+
+
+app.get('/all', (request, response) => {
+    database.find({}, (err, data) => {
+        if (err) {
+            response.end();
+            return;
+        }
+        response.json(data);
+    });
+});
+
+
+
+
 // api routing to post the data // 
-app.post('/api', (request,response) =>{
+app.post('/api', (request, response) => {
     console.log(request.body)
     const data = request.body;
     const timestamp = Date.now();
@@ -26,7 +42,9 @@ app.post('/api', (request,response) =>{
         timestamp: timestamp,
         latitude: data.lat,
         longitude: data.lon,
-        mood: data.mood,
-        day: data.day,
+        food: data.food,
+        image: data.image64,
     });
-} )
+})
+
+
