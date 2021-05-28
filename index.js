@@ -37,14 +37,7 @@ app.post('/api', (request, response) => {
     data.timestamp = timestamp;
     database.insert(data);
     console.log(database);
-    response.json({
-        status: 'success',
-        timestamp: timestamp,
-        latitude: data.lat,
-        longitude: data.lon,
-        food: data.food,
-        image: data.image64,
-    });
+    response.json(data);
 })
 
 
